@@ -1,0 +1,73 @@
+#To do list
+import tkinter as tk
+from tkinter import messagebox
+
+tasks = []
+
+# Add task function
+def add_task():
+    task = task_entry.get()
+    if task.strip() != "":
+        tasks.append({"task": task, "done": False})
+        update_listbox()
+        task_entry.delete(0, tk.END)
+    else:
+        messagebox.showwarning("Warning", "Please enter a task!")
+
+# Delete task function
+def delete_task():
+    try:
+        selected = task_listbox.curselection()[0]
+        tasks.pop(selected)
+        update_listbox()
+    except:
+        messagebox.showwarning("Warning", "Please select a task to delete!")
+
+# Mark task complete
+def complete_task():
+    try:
+        selected = task_listbox.curselection()[0]
+        tasks[selected]["done"] = True
+        update_listbox()
+    except:
+        messagebox.showwarning("Warning", "Please select a task to mark complete!")
+
+# Update listbox display
+def update_listbox():
+    task_listbox.delete(0, tk.END)
+    for t in tasks:
+        status = "✅" if t["done"] else "❌"
+        task_listbox.insert(tk.END, f"{t['task']}  {status}")
+
+# Main Window
+root = tk.Tk()
+root.title("To-Do List - Internship Project")
+root.geometry("500x450")
+root.configure(bg="#2C3E50")
+
+title_label = tk.Label(root, text="📋 To-Do List", font=("Arial", 20, "bold"), bg="#2C3E50", fg="white")
+title_label.pack(pady=10)
+
+# Entry box
+task_entry = tk.Entry(root, font=("Arial", 14), width=30, bg="#ECF0F1")
+task_entry.pack(pady=10)
+
+# Buttons Frame
+btn_frame = tk.Frame(root, bg="#2C3E50")
+btn_frame.pack(pady=5)
+
+add_btn = tk.Button(btn_frame, text="Add Task", command=add_task, width=15, bg="#27AE60", fg="white", font=("Arial", 12))
+add_btn.grid(row=0, column=0, padx=5)
+
+delete_btn = tk.Button(btn_frame, text="Delete Task", command=delete_task, width=15, bg="#E74C3C", fg="white", font=("Arial", 12))
+delete_btn.grid(row=0, column=1, padx=5)
+
+complete_btn = tk.Button(btn_frame, text="Mark Complete", command=complete_task, width=15, bg="#2980B9", fg="white", font=("Arial", 12))
+complete_btn.grid(row=0, column=2, padx=5)
+
+# Task Listbox
+task_listbox = tk.Listbox(root, font=("Arial", 14), width=40, height=12, selectbackground="#3498DB")
+task_listbox.pack(pady=10)
+
+# Run
+root.mainloop()
