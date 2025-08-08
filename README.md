@@ -27,5 +27,5 @@ Perfect for personal task management and learning Python GUI development.
 ## 📥 How to Run
 1. **Download or clone** this repository:  
    
-   git clone https://github.com/YourUsername/todo-list-python.git
+   git clone https://github.com/DiyaRana7/codsoft_task_1.git
 
